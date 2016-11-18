@@ -1,6 +1,6 @@
 #!/bin/sh
-#
-# Check if imagemagick is installed
+
+
 RED='\033[00;31m'
 GREEN='\033[00;32m'
 RESTORE='\033[0m'
@@ -8,12 +8,12 @@ RESTORE='\033[0m'
 Show_Help() {
   echo "${RESTORE}
   +------------+
-  | ${GREEN}imagemagic ${RESTORE}|
+  | ${GREEN}iconsCreator ${RESTORE}|
   +------------+
-  imagemagic is a helper to quickly create icons of different sizes required for iOS from an input image.
+  iconsCreator is a helper to quickly create icons of different sizes required for iOS from an input image.
 
   Usage:
-      ${RED}imagemagic filename.png
+      ${RED}iconsCreator filename.png
   ${RESTORE}
   "
   exit 1
@@ -54,18 +54,5 @@ do
   :
   convert $input -resize $size "$folderName"/iOS_"$size".png
 done
-
-#Write Contents.json
-# jsonFile="$folderName"/Contents.json
-# echo "{
-#   "images" : [" >> $jsonFile
-# ### Write for different sets
-#
-# echo "],
-#   "info" : {
-#     "version" : 1,
-#     "author" : "xcode"
-#   }
-# }" >> $jsonFile
 
 open $DIR
