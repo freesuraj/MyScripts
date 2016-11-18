@@ -3,7 +3,10 @@
 # Publish.sh is a command line script to help you publish a post to github page quickly for github page using Jekyll template.
 # To start up please setup github name first
 
-# Get user inputs
+########################
+# User Input 
+########################
+
 title=""
 user=""
 tags=""
@@ -30,14 +33,14 @@ Show_Help() {
     -f : the input md file
 
   example:
-    publish -t TITLE -g tag1 tag2 -f /path/to/md/file.md
+    publish -t TITLE -g tag1 tag2 -f /path/to/md/file.md -u githubUsername
       OR
-    publish -f /path/to/md/file.md
+    publish -f /path/to/md/file.md -u githubUsername
   "
   exit 1
 }
 
-while getopts "t:c:g:f:h" flag; do
+while getopts "u:t:g:f:h" flag; do
   case $flag in
     u) user="$OPTARG" ;;
     t) title="$OPTARG" ;;
@@ -48,8 +51,9 @@ done
 
 if [ "$file" = "" ]; then
   Show_Help file
+elif [ "$user" = "" ]; then
+  Show_Help user
 else
-  # Read file content
   body=`cat $file`
   if [ "$body" = "" ]; then
     echo "Error: The md file is empty"
@@ -69,31 +73,37 @@ header="---
 layout: post
 title: $title
 tags: $tags
-date: `date +%Y-%m-%d:%H:%M:%S`
+date: `date +"%Y-%m-%d %H:%M:%S"`
 ---
 "
 
-### Git clone and update 
+########################
+# Git clone and update 
+########################
+
 # Temporary directory where repo will be downloaded
-dir="./tmp/"
-repoDir="{user}.github.io.git"
-repo="git@github.com/${user}/{repoDir}"
+dir="$HOME/.tmp"
+repoDir="${user}.github.io"
+repo="git@github.com:${user}/${repoDir}.git"
+
+mkdir $dir
 cd $dir
 git clone $repo
 cd $repoDir
-loc1=`pwd` # Current directory
 
-echo "$header" >> $repoDir/_posts/$newpost
-echo "$body" >> $repoDir/_posts/$newpost
-echo "file successfully written at $newpost"
+touch _posts/$newpost
+echo "Created a post at temporary directory ${dir}/${repoDir}/_posts/${newpost}"
+
+echo "$header" >> _posts/$newpost
+echo "$body" >> _posts/$newpost
 
 # location
 git add .
 git commit -m "Add a new post: $title"
 git push origin master
-echo "file successfully updated at $gitrepo"
+echo "file successfully updated to remote from $repoDir"
 
-cd $dir
-rm -rf $repoDir
-
+cd 
+rm -rf $dir
+echo "Temporary directory deleted"
 echo "Completed!!"

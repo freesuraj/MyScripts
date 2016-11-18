@@ -14,3 +14,24 @@ Install `imagemagick`
 Run iconsCreator
 
 ```~/.iconsCreator BigIcon.png```
+
+### Publish.sh
+If you have a github.io site in [Jekyll](https://github.com/jekyll/jekyll/wiki/themes) template, you might find this useful. It helps you quickly publish a `markdown` file to your github.io page.
+Feel free to checkout my github.io public page [here](https://freesuraj.github.io), and [source code](https://github.com/freesuraj/freesuraj.github.io).
+
+#### Usage:
+```
+./Publish.sh [options]
+
+  Options
+  --------
+    -u : github user name
+    -t : title (Optional)
+    -g : tags (Optional)
+    -f : the input md file
+
+  eg:
+    ./Publish.sh -t TITLE -g tag1 tag2 -f /path/to/md/file.md -u githubUsername
+    
+    ./Publish.sh -f /path/to/md/file.md -u githubUsername
+```
