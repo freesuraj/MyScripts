@@ -11,7 +11,6 @@ title=""
 user=""
 tags=""
 file=""
-path="_posts"
 
 Show_Help() {
 
