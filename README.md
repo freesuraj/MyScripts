@@ -35,3 +35,13 @@ Feel free to checkout my github.io public page [here](https://freesuraj.github.i
     
     ./Publish.sh -f /path/to/md/file.md -u githubUsername
 ```
+
+## Other Cool scripts
+
+### imgcat
+As it says, [imgcat](https://github.com/eddieantonio/imgcat) is like a cat but for images. Image is displayed right on `iTerm` terminal. Both local image and image URL are supported.
+
+```
+brew tap eddieantonio/eddieantonio
+brew install imgcat
+```
